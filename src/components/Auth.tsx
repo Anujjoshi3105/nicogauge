@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,8 +31,9 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns"; // Ensure this is installed and imported correctly.
+import { format } from "date-fns";
 import { FaGoogle } from "react-icons/fa6";
+import { toast } from "sonner";
 
 type AuthProps = {
   isRegister: boolean;
@@ -87,8 +88,12 @@ export default function Auth({ isRegister, className }: AuthProps) {
 
       const fileUrl = URL.createObjectURL(file);
       setAvatarUrl(fileUrl);
-    } catch (error: any) {
-      alert("Error uploading avatar: " + error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast(`Error uploading avatar: ${error.message}`, { duration: 5000 });
+      } else {
+        toast("Error uploading avatar: Unknown error.", { duration: 5000 });
+      }
     } finally {
       setUploading(false);
     }
@@ -205,14 +210,14 @@ export default function Auth({ isRegister, className }: AuthProps) {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <Label htmlFor="dob">Date of Birth</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal",
+                        "w-full justify-start text-left font-normal h-9",
                         !dob && "text-muted-foreground"
                       )}>
                       <CalendarIcon className="mr-2 h-4 w-4" />
