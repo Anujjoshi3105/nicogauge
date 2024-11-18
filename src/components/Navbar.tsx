@@ -99,7 +99,7 @@ export default function Navbar() {
               initial="initial"
               animate="open"
               exit="exit"
-              className="flex flex-col h-full justify-center font-bold gap-8">
+              className="flex flex-col h-full justify-center align-center font-bold gap-8">
               {navLinks.map((link) => (
                 <motion.div
                   key={link.href}
@@ -108,16 +108,14 @@ export default function Navbar() {
                   <Link href={link.href}>{link.title}</Link>
                 </motion.div>
               ))}
-              <motion.div
-                className="space-x-4 text-xl mt-4"
-                variants={mobileLinkVars}>
+              <motion.div className="space-x-4 mt-5" variants={mobileLinkVars}>
                 <Auth
                   isRegister={false}
-                  className="text-white bg-background text-xl"
+                  className="text-xl bg-background hover:bg-accent hover:text-background"
                 />
                 <Auth
                   isRegister={true}
-                  className="text-white bg-background text-xl"
+                  className="text-xl bg-background hover:bg-accent hover:text-background"
                 />
               </motion.div>
             </motion.div>
@@ -140,7 +138,7 @@ export default function Navbar() {
         <div className="hidden lg:block space-x-4 text-base">
           <Auth
             isRegister={true}
-            className="text-white font-semibold bg-background hover:bg-primary hover:text-background border border-white hover:border-primary"
+            className="border border-input bg-background hover:bg-accent hover:text-background"
           />
           <Auth
             isRegister={false}

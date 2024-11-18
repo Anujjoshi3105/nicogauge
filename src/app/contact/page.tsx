@@ -26,20 +26,20 @@ export default function Component() {
   };
 
   return (
-    <div className="max-w-2xl p-6 mx-auto h-screen flex flex-col justify-center">
+    <div className="max-w-2xl py-6 px-4 mx-auto h-screen flex flex-col justify-center">
       <Image
         src="/support.svg"
         alt="Support"
         width={1000}
         height={1000}
-        className="hidden md:block absolute -left-20 -z-10 w-1/2 opacity-10 translate-y-20"
+        className="block absolute -left-20 -z-10 w-1/2 opacity-10 translate-y-20"
       />
       <Image
         src="/influencer.svg"
         alt="Influencer"
         width={1000}
         height={1000}
-        className="hidden md:block absolute -right-20 -translate-y-20 -z-10 w-1/2 opacity-10"
+        className="block absolute -right-20 -translate-y-20 -z-10 w-1/2 opacity-10"
       />
       <h1 className="text-3xl md:text-5xl sm:text-4xl font-extrabold text-center mb-2">
         Get in Touch

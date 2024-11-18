@@ -161,6 +161,20 @@ export const testimonials = [
     imageUrl: "/101.jpeg",
   },
   {
+    name: "Dr. Ravi Mehta",
+    title: "Psychologist & Addiction Specialist",
+    description:
+      "NicoGauge is a breakthrough platform that provides individuals with profound insights into their smoking habits. Its innovative approach empowers users to make meaningful changes.",
+    imageUrl: "/101.jpeg",
+  },
+  {
+    name: "Dr. Ravi Mehta",
+    title: "Psychologist & Addiction Specialist",
+    description:
+      "NicoGauge is a breakthrough platform that provides individuals with profound insights into their smoking habits. Its innovative approach empowers users to make meaningful changes.",
+    imageUrl: "/101.jpeg",
+  },
+  {
     name: "Sophia Carter",
     title: "Health Advocate",
     description:
@@ -231,8 +245,7 @@ export const footerLinks = [
 
 export const bottomLinks = [
   { title: "Privacy Policy", href: "/privacy-policy" },
-  { title: "Terms and Conditions", href: "/terms-and-conditions" },
-  { title: "Service", href: "/service" },
+  { title: "Terms & Conditions", href: "/terms-and-conditions" },
   { title: "Support", href: "/support" },
 ];
 
@@ -242,7 +255,7 @@ export const Banner1 = {
   title: "Understand Your Addiction, Take Control",
   subtitle:
     "Discover a platform designed to evaluate your cigarette addiction with precision. Gain personalized insights into your habits and receive guidance to empower your journey toward healthier choices. This is your first step towards a smoke-free life.",
-  link: "/form",
+  btn: { title: "Get Started", link: "/form" },
   reverse: false,
 };
 export const Banner2 = {
@@ -251,7 +264,6 @@ export const Banner2 = {
   title: "Decode the Impact of Neuromarketing",
   subtitle:
     "Explore how marketing strategies influence your decisions. Our platform equips you with knowledge about the subtle cues and triggers that shape your behavior, helping you make informed choices and reclaim control.",
-  link: "/form",
   reverse: true,
 };
 export const Banner3 = {
@@ -260,7 +272,6 @@ export const Banner3 = {
   title: "Personalized Guidance for Positive Change",
   subtitle:
     "Using detailed analysis, we provide actionable recommendations tailored to your needs. Whether reducing dependence or quitting entirely, our platform supports you with tools and resources to achieve lasting results.",
-  link: "/form",
   reverse: false,
 };
 export const Banner4 = {
@@ -269,6 +280,6 @@ export const Banner4 = {
   title: "Track Progress, Celebrate Milestones",
   subtitle:
     "Monitor your journey with intuitive tools that highlight your growth and achievements. Stay motivated as you reach key milestones, with support that keeps you aligned with your goals.",
-  link: "/form",
+  btn: { title: "Get Started", link: "/form" },
   reverse: true,
 };

@@ -64,8 +64,8 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="bg-primary text-background py-2">
-        <div className="container text-center flex flex-col-reverse md:flex-row justify-around items-center gap-2">
+      <div className="bg-primary text-background py-1">
+        <div className="container text-center flex flex-col md:flex-row justify-around items-center gap-2">
           <p>
             &copy; {new Date().getFullYear()} &nbsp;
             <Link href="/" className="hover:underline">
@@ -73,7 +73,7 @@ export default function Footer() {
             </Link>
             . All Rights Reserved.
           </p>
-          <ul className="flex space-x-6 text-sm">
+          <ul className="grid grid-cols-3 gap-2 text-sm">
             {bottomLinks.map(({ title, href }) => (
               <li key={title}>
                 <Link href={href} className="hover:underline">

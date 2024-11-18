@@ -5,7 +5,10 @@ interface BannerProps {
   image: string;
   title: string;
   subtitle: string;
-  link?: string;
+  btn?: {
+    title: string;
+    link: string;
+  };
   tag?: string;
   reverse?: boolean;
 }
@@ -15,7 +18,7 @@ export default function Banner({
   title,
   subtitle,
   tag = "",
-  link,
+  btn,
   reverse = false,
 }: BannerProps) {
   const SlideUp = (delay: number) => ({
@@ -54,29 +57,29 @@ export default function Banner({
           </motion.p>
         )}
         <motion.p
-          variants={SlideUp(0.4)}
+          variants={SlideUp(0.2)}
           initial="hidden"
           whileInView="visible"
           className="text-2xl sm:text-4xl font-[800] text-primary capitalize mb-8">
           {title}
         </motion.p>
         <motion.p
-          variants={SlideUp(0.6)}
+          variants={SlideUp(0.4)}
           initial="hidden"
           whileInView="visible"
           className="text-lg">
           {subtitle}
         </motion.p>
         <motion.div
-          variants={SlideUp(0.8)}
+          variants={SlideUp(0.6)}
           initial="hidden"
           whileInView="visible"
           className="flex justify-center md:justify-start my-6">
-          {link && (
+          {btn && btn.link && (
             <Link
-              href={link}
+              href={btn.link}
               className="font-semibold text-background bg-primary hover:scale-105 duration-150 rounded-full px-6 py-2">
-              Get Started
+              {btn.title}
             </Link>
           )}
         </motion.div>

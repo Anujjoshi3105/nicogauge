@@ -30,7 +30,7 @@ export default function Hero() {
         {/* Animated Heading */}
         <motion.h1
           id="hero-heading"
-          className="relative lg:text-8xl md:text-7xl sm:text-6xl text-5xl font-extrabold text-nowrap"
+          className="relative lg:text-8xl md:text-7xl sm:text-6xl text-4xl font-extrabold text-nowrap"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 100, delay: 0.2 }}>
@@ -62,8 +62,8 @@ export default function Hero() {
             passHref
             className="relative inline-block group focus:outline-none focus:ring">
             <span className="absolute inset-0 transition-transform translate-x-1 translate-y-1 bg-primary group-hover:bg-primary group-hover:translate-y-0.5 group-hover:translate-x-0.5 "></span>
-            <span className="relative block px-8 py-3 bg-background font-bold group-hover:bg-white/10 group-hover:text-background text-sm border border-primary">
-              Try Now
+            <span className="relative block px-6 py-3 bg-background font-bold group-hover:bg-white/10 group-hover:text-background text-sm border border-primary">
+              Get Started
             </span>
           </Link>
         </motion.div>

@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { questionsData, Question } from "@/data/data";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const QUESTIONS_PER_PAGE = 5;
 
@@ -53,12 +54,18 @@ export default function Page() {
 
   const handleSubmit = () => {
     console.log("Survey responses:", questions);
-    alert("Thank you for completing the survey!");
+    toast("Survey submitted!", {
+      description: "Thanks for taking the survey!",
+      duration: 8000,
+    });
     resetForm();
   };
 
   const cancelSubmit = () => {
-    alert("Survey canceled!");
+    toast("Survey cancelled!", {
+      description: "Thank you for visiting! Have a nice day.",
+      duration: 8000,
+    });
     resetForm();
   };
 
@@ -69,7 +76,7 @@ export default function Page() {
   };
 
   return (
-    <div className="p-12">
+    <div className="p-4 md:p-12">
       <Image
         src="/resume.svg"
         alt="form"
@@ -88,7 +95,7 @@ export default function Page() {
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 100, delay: 0.1 }}>
-        <Card className="w-full max-w-4xl mx-auto">
+        <Card className="md:p-6 p-2 w-full max-w-4xl mx-auto">
           <CardHeader>
             <CardTitle className="text-2xl font-bold">
               Your Smoking Journey: Insight and Evaluation

@@ -13,10 +13,26 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Github } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Password } from "./ui/password";
+import { Password } from "@/components/ui/password";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { CalendarIcon, Github, Upload } from "lucide-react";
+import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns"; // Ensure this is installed and imported correctly.
+import { FaGoogle } from "react-icons/fa6";
 
 type AuthProps = {
   isRegister: boolean;
@@ -25,17 +41,34 @@ type AuthProps = {
 
 export default function Auth({ isRegister, className }: AuthProps) {
   const [isLogin, setIsLogin] = useState(!isRegister);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  // Login State
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Registration State
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState<Date | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isLogin) {
-      console.log("Registering:", { email, password });
-    } else {
-      console.log("Logging in:", { email, password, rememberMe });
-    }
+    console.log("Logging in:", { loginEmail, loginPassword, rememberMe });
+  };
+
+  const handleRegisterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Registering:", {
+      registerEmail,
+      registerPassword,
+      gender,
+      dob,
+      avatarUrl,
+    });
   };
 
   const handleGoogleLogin = () => {
@@ -44,6 +77,21 @@ export default function Auth({ isRegister, className }: AuthProps) {
 
   const handleGithubLogin = () => {
     console.log("GitHub login clicked");
+  };
+
+  const uploadAvatar = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUploading(true);
+    try {
+      const file = event.target.files?.[0];
+      if (!file) throw new Error("Please select an image to upload.");
+
+      const fileUrl = URL.createObjectURL(file);
+      setAvatarUrl(fileUrl);
+    } catch (error: any) {
+      alert("Error uploading avatar: " + error.message);
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -55,7 +103,7 @@ export default function Auth({ isRegister, className }: AuthProps) {
             className,
             "hover:scale-105 duration-150 rounded-full px-6 py-2"
           )}>
-          {isRegister ? "Sign in" : "Register"}
+          {isLogin ? "Register" : "Sign in"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -67,50 +115,137 @@ export default function Auth({ isRegister, className }: AuthProps) {
             {isLogin ? "Sign in to your account" : "Create a new account"}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="space-y-1">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              <Link
-                href="/auth/reset"
-                className="ml-auto inline-block text-xs hover:underline hover:text-primary">
-                Forgot your password?
-              </Link>
+        {isLogin ? (
+          <form onSubmit={handleLoginSubmit} className="space-y-3">
+            <div className="space-y-1">
+              <Label htmlFor="loginEmail">Email</Label>
+              <Input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+                required
+              />
             </div>
-            <Password
-              id="password"
-              placeholder="**********"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          {isLogin && (
+            <div className="space-y-1">
+              <div className="flex items-center">
+                <Label htmlFor="loginPassword">Password</Label>
+                <Link
+                  href="/auth/reset"
+                  className="ml-auto text-xs hover:underline text-primary">
+                  Forgot your password?
+                </Link>
+              </div>
+              <Password
+                id="loginPassword"
+                placeholder="**********"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                required
+              />
+            </div>
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="remember"
                 checked={rememberMe}
-                onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
               />
               <Label htmlFor="remember">Remember me</Label>
             </div>
-          )}
-          <Button type="submit" className="w-full text-background">
-            {isLogin ? "Login" : "Register"}
-          </Button>
-        </form>
-        <div className="relative">
+            <Button type="submit" className="w-full text-background">
+              Login
+            </Button>
+          </form>
+        ) : (
+          <form onSubmit={handleRegisterSubmit} className="space-y-2">
+            <div className="space-y-1">
+              <Label htmlFor="avatar">Avatar</Label>
+              <div className="flex items-center space-x-4">
+                <Avatar className="w-12 h-12">
+                  <AvatarImage src={avatarUrl || ""} />
+                  <AvatarFallback>
+                    <Upload className="w-8 h-8" />
+                  </AvatarFallback>
+                </Avatar>
+                <Input
+                  id="avatar"
+                  type="file"
+                  accept="image/*"
+                  onChange={uploadAvatar}
+                  disabled={uploading}
+                />
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="registerEmail">Email</Label>
+              <Input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                value={registerEmail}
+                onChange={(e) => setRegisterEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <Label htmlFor="gender">Gender</Label>
+                <Select value={gender} onValueChange={setGender}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="prefer-not-to-say">
+                      Prefer not to say
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="dob">Date of Birth</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !dob && "text-muted-foreground"
+                      )}>
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {dob ? format(dob, "PPP") : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={dob || undefined}
+                      onSelect={(date) => setDob(date || null)}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="registerPassword">Password</Label>
+              <Password
+                id="registerPassword"
+                placeholder="**********"
+                value={registerPassword}
+                onChange={(e) => setRegisterPassword(e.target.value)}
+                required
+              />
+            </div>
+            <Button type="submit" className="w-full text-background">
+              Register
+            </Button>
+          </form>
+        )}
+        <div className="relative my-2">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t"></span>
           </div>
@@ -121,40 +256,32 @@ export default function Auth({ isRegister, className }: AuthProps) {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-6">
-          <Button
-            onClick={handleGoogleLogin}
-            className="border border-input bg-background shadow-sm hover:bg-accent hover:text-background">
-            <Github />
-            GitHub
-          </Button>
-          <Button
-            onClick={handleGithubLogin}
-            className="border border-input bg-background shadow-sm hover:bg-accent hover:text-background">
-            <svg role="img" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"></path>
-            </svg>
+          <Button variant="outline" onClick={handleGoogleLogin}>
+            <FaGoogle className="mr-2 h-4 w-4" />
             Google
+          </Button>
+          <Button variant="outline" onClick={handleGithubLogin}>
+            <Github className="mr-2 h-4 w-4" />
+            GitHub
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
           {isLogin ? (
             <p>
-              Don&apos;t have an account?{" "}
+              Don&apos;t have an account?&nbsp;
               <button
                 onClick={() => setIsLogin(false)}
-                className="text-primary hover:underline">
-                Sign up
+                className="font-semibold underline hover:text-primary">
+                Register
               </button>
             </p>
           ) : (
             <p>
-              Already have an account?{" "}
+              Already have an account?&nbsp;
               <button
                 onClick={() => setIsLogin(true)}
-                className="text-primary hover:underline">
-                Sign in
+                className="font-semibold underline hover:text-primary">
+                Login
               </button>
             </p>
           )}

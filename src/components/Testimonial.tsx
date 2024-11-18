@@ -1,3 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 import { testimonials } from "@/data/data";
 import Image from "next/image";
 
@@ -32,8 +38,27 @@ const Card = ({ name, title, description, imageUrl }: cardProps) => {
     </div>
   );
 };
+export default function TestimonialCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
 
-const Testimonial = () => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((current) => (current + 1) % testimonials.length);
+    }, 5000); // Change testimonial every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, []);
+
+  const handlePrev = () => {
+    setActiveIndex(
+      (current) => (current - 1 + testimonials.length) % testimonials.length
+    );
+  };
+
+  const handleNext = () => {
+    setActiveIndex((current) => (current + 1) % testimonials.length);
+  };
+
   return (
     <div className="">
       <div className="space-y-2">
@@ -44,21 +69,56 @@ const Testimonial = () => {
           Testimonial
         </h2>
       </div>
-      <div
-        className="container mx-auto p-1 my-3 grid max-w-7xl lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8"
-        id="testimonial">
-        {testimonials.map((testimonial, index) => (
-          <Card
-            key={index}
-            name={testimonial.name}
-            title={testimonial.title}
-            description={testimonial.description}
-            imageUrl={testimonial.imageUrl}
-          />
-        ))}
+      <div className="w-full max-w-3xl mx-auto px-4 py-8">
+        <div className="overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${activeIndex * 100}%)` }}>
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="flex-none w-full">
+                <Card
+                  key={index}
+                  name={testimonial.name}
+                  title={testimonial.title}
+                  description={testimonial.description}
+                  imageUrl={testimonial.imageUrl}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center mt-4 gap-4 md:gap-8">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handlePrev}
+            className="rounded-full"
+            aria-label="Previous testimonial">
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <div className="flex gap-2">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                className={`h-2 w-2 rounded-full transition-colors ${
+                  index === activeIndex ? "bg-primary" : "bg-primary/20"
+                }`}
+                onClick={() => setActiveIndex(index)}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full"
+            onClick={handleNext}
+            aria-label="Next testimonial">
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );
-};
-
-export default Testimonial;
+}
