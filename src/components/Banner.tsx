@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 interface BannerProps {
   image: string;
   title: string;
-  subtitle: string;
+  para: string;
   btn?: {
     title: string;
     link: string;
@@ -16,8 +17,8 @@ interface BannerProps {
 export default function Banner({
   image,
   title,
-  subtitle,
-  tag = "",
+  para,
+  tag,
   btn,
   reverse = false,
 }: BannerProps) {
@@ -31,7 +32,7 @@ export default function Banner({
   });
 
   return (
-    <section className="container grid grid-cols-1 md:grid-cols-2 space-y-6 md:space-y-0">
+    <section className="container grid grid-cols-1 md:grid-cols-2 space-x-6 space-y-6 mx-auto">
       {/* Image Section */}
       <div
         className={`flex justify-center items-center 
@@ -42,45 +43,43 @@ export default function Banner({
           transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
           src={image}
           alt={`${title} illustration`}
-          className="w-[400px] md:w-[600px] h-full object-cover"
+          className=""
         />
       </div>
       {/* Text Section */}
-      <div className="flex flex-col justify-center text-center md:text-left lg:max-w-1/3">
+      <div className="flex flex-col justify-center text-center md:text-left">
         {tag && (
-          <motion.p
-            variants={SlideUp(0.2)}
+          <motion.h4
+            variants={SlideUp(0.1)}
             initial="hidden"
             whileInView="visible"
-            className="font-semibold capitalize mb-2">
+            className="font-semibold capitalize">
             {tag}
-          </motion.p>
+          </motion.h4>
         )}
-        <motion.p
-          variants={SlideUp(0.2)}
+        <motion.h2
+          variants={SlideUp(0.1)}
           initial="hidden"
           whileInView="visible"
           className="text-2xl sm:text-4xl font-[800] text-primary capitalize mb-8">
           {title}
-        </motion.p>
+        </motion.h2>
         <motion.p
-          variants={SlideUp(0.4)}
+          variants={SlideUp(0.2)}
           initial="hidden"
           whileInView="visible"
           className="text-lg">
-          {subtitle}
+          {para}
         </motion.p>
         <motion.div
-          variants={SlideUp(0.6)}
+          variants={SlideUp(0.3)}
           initial="hidden"
           whileInView="visible"
-          className="flex justify-center md:justify-start my-6">
+          className="flex justify-center md:justify-start my-8">
           {btn && btn.link && (
-            <Link
-              href={btn.link}
-              className="font-semibold text-background bg-primary hover:scale-105 duration-150 rounded-full px-6 py-2">
-              {btn.title}
-            </Link>
+            <Button asChild size="rounded">
+              <Link href={btn.link}>{btn.title}</Link>
+            </Button>
           )}
         </motion.div>
       </div>

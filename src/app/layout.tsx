@@ -58,9 +58,6 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
-          <div className="w-[80vw] uppercase leading-8 text-center font-extrabold fixed select-none -z-10 left-1/2 translate-x-[-50%] bottom-8 md:bottom-14 opacity-[8%] text-stroke">
-            Track smarter, perform better
-          </div>
           <Toaster />
         </Suspense>
       </body>

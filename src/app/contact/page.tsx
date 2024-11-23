@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function Component() {
@@ -26,7 +27,7 @@ export default function Component() {
   };
 
   return (
-    <div className="max-w-2xl py-6 px-4 mx-auto h-screen flex flex-col justify-center">
+    <div className="max-w-2xl m-6 px-4 mx-auto h-[90vh] flex flex-col justify-center">
       <Image
         src="/support.svg"
         alt="Support"
@@ -41,17 +42,28 @@ export default function Component() {
         height={1000}
         className="block absolute -right-20 -translate-y-20 -z-10 w-1/2 opacity-10"
       />
-      <h1 className="text-3xl md:text-5xl sm:text-4xl font-extrabold text-center mb-2">
-        Get in Touch
-      </h1>
-      <p className="text-center text-primary mb-8">
-        Have a question or want to work together? Fill out the form below.
-      </p>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 100, delay: 0.1 }}
+        className="text-center space-y-2 my-8">
+        <h1 className="text-3xl md:text-5xl sm:text-4xl font-extrabold">
+          Get in Touch
+        </h1>
+        <p className="text-primary">
+          Have a question or want to work together? Fill out the form below.
+        </p>
+      </motion.div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <motion.form
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 100 }}
+        onSubmit={handleSubmit}
+        className="space-y-6 text-sm">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div>
-            <label htmlFor="name" className="block text-sm font-semibold mb-2">
+          <div className="space-y-2">
+            <label htmlFor="name" className="font-semibold">
               Name
             </label>
             <Input
@@ -60,12 +72,11 @@ export default function Component() {
               placeholder="Your name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full bg-white text-background"
+              className="w-full"
             />
           </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-semibold mb-2">
+          <div className="space-y-2">
+            <label htmlFor="email" className="font-semibold">
               Email
             </label>
             <Input
@@ -75,12 +86,12 @@ export default function Component() {
               placeholder="your@email.com"
               value={formData.email}
               onChange={handleChange}
-              className="w-full bg-white text-background"
+              className="w-full"
             />
           </div>
         </div>
-        <div>
-          <label htmlFor="message" className="block text-sm font-semibold mb-2">
+        <div className="space-y-2">
+          <label htmlFor="message" className="font-semibold">
             Message
           </label>
           <Textarea
@@ -89,16 +100,15 @@ export default function Component() {
             placeholder="Your message"
             value={formData.message}
             onChange={handleChange}
-            className="w-full min-h-[150px] bg-white text-background"
+            className="w-full min-h-[150px]"
           />
         </div>
-
         <Button
           type="submit"
           className="w-full bg-primary hover:opacity-90 active:scale-95  text-background">
           Submit
         </Button>
-      </form>
+      </motion.form>
     </div>
   );
 }

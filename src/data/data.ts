@@ -235,11 +235,21 @@ export const cardData = [
 export const footerLinks = [
   {
     title: "Explore",
-    links: ["About Us", "Projects", "Events", "Community"],
+    links: [
+      { title: "About Us", href: "/about" },
+      { title: "Projects", href: "/project" },
+      { title: "Events", href: "/event" },
+      { title: "Community", href: "/community" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Tutorials", "Workshops", "Blog", "Contact Us"],
+    links: [
+      { title: "Tutorials", href: "/tutorial" },
+      { title: "Workshops", href: "/workshop" },
+      { title: "Blogs", href: "/blog" },
+      { title: "Contact Us", href: "/contact" },
+    ],
   },
 ];
 
@@ -250,36 +260,32 @@ export const bottomLinks = [
 ];
 
 export const Banner1 = {
-  image: "/nurse.svg",
+  image: "/collaborate.svg",
   tag: "TAILORED FOR YOUR JOURNEY",
   title: "Understand Your Addiction, Take Control",
-  subtitle:
-    "Discover a platform designed to evaluate your cigarette addiction with precision. Gain personalized insights into your habits and receive guidance to empower your journey toward healthier choices. This is your first step towards a smoke-free life.",
+  para: "Discover a platform designed to evaluate your cigarette addiction with precision. Gain personalized insights into your habits and receive guidance to empower your journey toward healthier choices. This is your first step towards a smoke-free life.",
   btn: { title: "Get Started", link: "/form" },
   reverse: false,
 };
 export const Banner2 = {
-  image: "/doctor.svg",
+  image: "/target.svg",
   tag: "INSIGHTS DRIVEN BY NEUROSCIENCE",
   title: "Decode the Impact of Neuromarketing",
-  subtitle:
-    "Explore how marketing strategies influence your decisions. Our platform equips you with knowledge about the subtle cues and triggers that shape your behavior, helping you make informed choices and reclaim control.",
+  para: "Explore how marketing strategies influence your decisions. Our platform equips you with knowledge about the subtle cues and triggers that shape your behavior, helping you make informed choices and reclaim control.",
   reverse: true,
 };
 export const Banner3 = {
-  image: "/patient.svg",
+  image: "/objective.svg",
   tag: "EMPOWERED BY DATA",
   title: "Personalized Guidance for Positive Change",
-  subtitle:
-    "Using detailed analysis, we provide actionable recommendations tailored to your needs. Whether reducing dependence or quitting entirely, our platform supports you with tools and resources to achieve lasting results.",
+  para: "Using detailed analysis, we provide actionable recommendations tailored to your needs. Whether reducing dependence or quitting entirely, our platform supports you with tools and resources to achieve lasting results.",
   reverse: false,
 };
 export const Banner4 = {
-  image: "/cleaner.svg",
+  image: "/success.svg",
   tag: "FOCUSED ON YOUR SUCCESS",
   title: "Track Progress, Celebrate Milestones",
-  subtitle:
-    "Monitor your journey with intuitive tools that highlight your growth and achievements. Stay motivated as you reach key milestones, with support that keeps you aligned with your goals.",
+  para: "Monitor your journey with intuitive tools that highlight your growth and achievements. Stay motivated as you reach key milestones, with support that keeps you aligned with your goals.",
   btn: { title: "Get Started", link: "/form" },
   reverse: true,
 };

@@ -76,20 +76,20 @@ export default function Page() {
   };
 
   return (
-    <div className="p-4 md:p-12">
+    <div className="p-4 md:p-12 relative">
       <Image
         src="/resume.svg"
         alt="form"
         width={1000}
         height={1000}
-        className="hidden md:block absolute -right-20 -translate-y-20 -z-10 w-1/2 opacity-10"
+        className="absolute -right-10 top-10 -z-10 w-[40%] opacity-10"
       />
       <Image
         src="/reservation.svg"
         alt="form"
         width={1000}
         height={1000}
-        className="hidden md:block absolute -left-20 translate-y-20 -z-10 w-1/2 opacity-10"
+        className="absolute -left-10 bottom-10 -z-10 w-[40%] opacity-10"
       />
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
@@ -97,7 +97,7 @@ export default function Page() {
         transition={{ type: "spring", stiffness: 100, delay: 0.1 }}>
         <Card className="md:p-6 p-2 w-full max-w-4xl mx-auto">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold">
+            <CardTitle className="text-xl sm:text-2xl font-bold text-background">
               Your Smoking Journey: Insight and Evaluation
             </CardTitle>
             <CardDescription>
@@ -117,14 +117,14 @@ export default function Page() {
                   className="w-full"
                 />
                 <div className="text-sm text-center text-muted-foreground">
-                  Page {currentPage + 1} of{" "}
+                  Page {currentPage + 1} of&nbsp;
                   {Math.ceil(questions.length / QUESTIONS_PER_PAGE)}
                 </div>
                 {currentPageQuestions.map((question) => (
-                  <div key={question.id} className="space-y-4">
+                  <div key={question.id} className="space-y-2">
                     <Label
                       htmlFor={`question-${question.id}`}
-                      className="sm:text-lg font-medium">
+                      className="sm:text-lg font-medium text-background">
                       {question.text}
                     </Label>
                     <Slider
@@ -137,7 +137,7 @@ export default function Page() {
                         handleSliderChange(question.id, value)
                       }
                     />
-                    <div className="grid grid-cols-5 justify-between text-xs sm:text-sm text-muted-foreground">
+                    <div className="grid gap-1 grid-cols-5 text-xs sm:text-sm text-muted-foreground">
                       {question.labels.map((label, index) => (
                         <span
                           key={index}
@@ -154,15 +154,15 @@ export default function Page() {
                 ))}
               </div>
             ) : (
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium">
+              <div className="space-y-2">
+                <h3 className="text-lg font-bold text-background mb-4">
                   Summary of Your Responses
                 </h3>
                 {questions.map((question) => (
                   <div
                     key={question.id}
-                    className="bg-background p-2 rounded-lg space-y-2">
-                    <p className="font-medium text-white">{question.text}</p>
+                    className="bg-background p-2 rounded-lg space-y-1">
+                    <p className="text-foreground">{question.text}</p>
                     <p className="text-primary">
                       {question.labels[question.value]}
                     </p>
@@ -175,14 +175,11 @@ export default function Page() {
             {!showSummary ? (
               <div className="w-full flex justify-between mt-8">
                 <Button
-                  className="bg-background hover:bg-background hover:opacity-90"
                   onClick={handlePreviousPage}
                   disabled={currentPage === 0}>
                   Previous
                 </Button>
-                <Button
-                  className="bg-background hover:bg-background hover:opacity-90"
-                  onClick={handleNextPage}>
+                <Button onClick={handleNextPage}>
                   {currentPage ===
                   Math.ceil(questions.length / QUESTIONS_PER_PAGE) - 1
                     ? "Review"
@@ -193,7 +190,7 @@ export default function Page() {
               <div className="w-full space-y-2 mt-8">
                 <Button
                   onClick={handleSubmit}
-                  className="bg-background hover:bg-background hover:opacity-90 w-full">
+                  className="bg-background text-foreground hover:bg-background hover:text-foreground hover:opacity-90 w-full">
                   Submit
                 </Button>
                 <Button

@@ -103,8 +103,8 @@ const config: Config = {
           background: "#222",
         },
         "::-webkit-scrollbar-thumb": {
-          background: "#555",
-          borderRadius: "2px",
+          background: "#c1ff70",
+          borderRadius: "3px",
         },
       });
     },

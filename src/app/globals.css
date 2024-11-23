@@ -6,17 +6,6 @@
 body {
   font-family: "Syne", Arial, Helvetica, sans-serif;
 }
-
-.text-stroke {
-  -webkit-text-stroke: 0.8px var(--primary);
-  -webkit-text-fill-color: transparent;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
 @layer base {
   :root {
     --background: 169 86% 17%;

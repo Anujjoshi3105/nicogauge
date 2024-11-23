@@ -11,7 +11,7 @@ export default function Footer() {
           <div>
             <Link
               href="/"
-              className="text-xl lg:text-2xl text-primary hover:text-white font-bold block mb-4">
+              className="text-xl lg:text-2xl text-primary hover:text-white font-[700] block mb-4">
               NicoGauge
             </Link>
             <p className="md:max-w-xs max-w-sm mx-auto md:mx-0">
@@ -28,12 +28,12 @@ export default function Footer() {
                 {title}
               </h5>
               <ul className="space-y-1">
-                {links.map((link) => (
-                  <li key={link}>
+                {links.map(({ title, href }) => (
+                  <li key={title}>
                     <Link
-                      href="/"
+                      href={href}
                       className="hover:text-primary hover:underline">
-                      {link}
+                      {title}
                     </Link>
                   </li>
                 ))}
@@ -53,9 +53,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 p-3 text-black rounded-sm max-w-sm"
+                className="flex-1 p-3 text-black max-w-sm"
               />
-              <button className="px-4 bg-black/40 flex items-center justify-center active:scale-95">
+              <button className="px-4 bg-black/30 flex items-center justify-center active:scale-95 hover:opacity-80">
                 <AiOutlineSend />
               </button>
             </form>

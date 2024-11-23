@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { motion } from "framer-motion";
 import { testimonials } from "@/data/data";
 import Image from "next/image";
 
@@ -61,15 +61,15 @@ export default function TestimonialCarousel() {
 
   return (
     <div className="">
-      <div className="space-y-2">
-        <h4 className="text-lg text-primary font-bold text-center">
-          Proud To Present
-        </h4>
-        <h2 className="text-4xl sm:text-5xl font-bold text-center">
-          Testimonial
-        </h2>
-      </div>
-      <div className="w-full max-w-3xl mx-auto px-4 py-8">
+      <header className="space-y-1 font-bold text-center">
+        <h4 className="text-lg text-primary">Proud To Present</h4>
+        <h2 className="text-4xl sm:text-5xl">Testimonial</h2>
+      </header>
+      <motion.div
+        className="w-full max-w-3xl mx-auto px-4 py-8"
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ type: "spring", stiffness: 100 }}>
         <div className="overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-in-out"
@@ -93,7 +93,7 @@ export default function TestimonialCarousel() {
             variant="outline"
             size="icon"
             onClick={handlePrev}
-            className="rounded-full"
+            className="rounded-full "
             aria-label="Previous testimonial">
             <ChevronLeft className="h-4 w-4" />
           </Button>
@@ -118,7 +118,7 @@ export default function TestimonialCarousel() {
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

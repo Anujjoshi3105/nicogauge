@@ -28,11 +28,11 @@ const Card = ({ label, endValue, duration }: CardProps) => {
 
   return (
     <motion.div
-      className="text-center font-bold p-4 md:p-12"
+      className="font-bold p-4 md:p-8 lg:p-12"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       onViewportEnter={() => setIsAnimating(true)}>
-      <div className="text-5xl mb-2">{count}+</div>
+      <div className="text-4xl md:text-5xl mb-2">{count}+</div>
       <div className="text-lg">{label}</div>
     </motion.div>
   );
@@ -40,7 +40,7 @@ const Card = ({ label, endValue, duration }: CardProps) => {
 
 export default function Counter() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-primary text-background rounded-lg">
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center bg-primary text-background rounded-lg">
       {cardData.map((card, index) => (
         <Card
           key={index}
@@ -49,6 +49,6 @@ export default function Counter() {
           duration={card.duration}
         />
       ))}
-    </div>
+    </section>
   );
 }

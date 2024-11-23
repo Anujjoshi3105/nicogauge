@@ -104,19 +104,13 @@ export default function Navbar() {
                 <motion.div
                   key={link.href}
                   variants={mobileLinkVars}
-                  className="text-4xl md:text-5xl uppercase hover:opacity-70">
+                  className="text-3xl sm:text-4xl md:text-5xl uppercase hover:opacity-70">
                   <Link href={link.href}>{link.title}</Link>
                 </motion.div>
               ))}
               <motion.div className="space-x-4 mt-5" variants={mobileLinkVars}>
-                <Auth
-                  isRegister={false}
-                  className="text-xl bg-background hover:bg-accent hover:text-background"
-                />
-                <Auth
-                  isRegister={true}
-                  className="text-xl bg-background hover:bg-accent hover:text-background"
-                />
+                <Auth variant="tertiary" className="text-xl" />
+                <Auth variant="tertiary" type="register" className="text-xl" />
               </motion.div>
             </motion.div>
           </motion.div>
@@ -130,20 +124,14 @@ export default function Navbar() {
         <Link href="/" className="hover:scale-105">
           <Image src="/icon.svg" alt="NicoGauge" width={50} height={50} />
         </Link>
-        <div className="hidden text-lg font-bold lg:flex gap-12 translate-x-16">
+        <div className="hidden text-lg font-bold lg:flex gap-16 translate-x-12">
           {navLinks.map((link) => (
             <AnimatedLink title={link.title} href={link.href} key={link.href} />
           ))}
         </div>
         <div className="hidden lg:block space-x-4 text-base">
-          <Auth
-            isRegister={true}
-            className="border border-input bg-background hover:bg-accent hover:text-background"
-          />
-          <Auth
-            isRegister={false}
-            className="font-semibold text-background bg-primary"
-          />
+          <Auth variant="outline" />
+          <Auth type="register" />
         </div>
 
         <FaBars
